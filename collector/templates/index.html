@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>TikTok-Link-Speicher</title>
+    <title>TikTok-Link-Spammler</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,14 +13,16 @@
 
     <div class="container">
         <h1>TikTok-Link-Speicher
-            <span class="tooltip">
+          
+        </h1>
+		
+		  <span class="tooltip">
                 ?
                 <span class="tooltiptext">
                     Pro Zeile einen Link einfügen.<br>
                     Bereits vorhandene Kanäle werden<br> übersprungen.
                 </span>
             </span>
-        </h1>
 
         <form method="POST" action="/">
             <!-- Mehrzeilen-Eingabefeld -->
