@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>TikTok-Link-Speicher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Sticky Kopfbereich mit banderole.png -->
+    <header class="sticky-header">
+        <img src="{{ url_for('static', filename='banderole.png') }}" alt="Banderole" class="banderole">
+    </header>
+
+    <div class="container">
+        <h1>TikTok-Link-Sammler
+
+        </h1>
+
+        <form method="POST" action="/">
+            <!-- Mehrzeilen-Eingabefeld für mehrere Links -->
+            <textarea name="eingabe_link" rows="8" placeholder="Bulkupload - Pro Zeile genau ein TikTok-Link" required></textarea>
+            <button type="submit">Speichern</button> 
+			<span class="tooltip">
+                ?
+                <span class="tooltiptext">
+                    Pro Zeile einen Link einfügen.<br>
+                    Jeder Link wird als eigener Datenbankeintrag gespeichert. 
+					Ein TikTok-Video-Link wird als TikTok-Kanal-Link erkannt.
+                </span>
+            </span>
+        </form>
+		
+		            
+
+        {% if fehlermeldung %}
+            <p class="error">{{ fehlermeldung }}</p>
+        {% endif %}
+
+        <p class="info">Gesamtanzahl gespeicherter Einträge: <strong>{{ total_links }}</strong></p>
+
+        <h2>Gespeicherte Einträge (max. 50 pro Seite)</h2>
+        <ul class="link-list">
+            {% for kanal, zeitstempel in links %}
+                <li>
+                    <div><strong>Kanal:</strong> {{ kanal }}</div>
+                    <div><strong>Zeitstempel:</strong> {{ zeitstempel }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Seiten-Navigation -->
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="?page={{ page - 1 }}" class="prev">« Zurück</a>
+            {% endif %}
+            {% if total_links > page * per_page %}
+                <a href="?page={{ page + 1 }}" class="next">Weiter »</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

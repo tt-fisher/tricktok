@@ -1,0 +1,147 @@
+/* Schwarzer Hintergrund, weißer Text */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+/* Sticky Header für die Banderole */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #000;
+    z-index: 999;
+}
+
+.banderole {
+    width: 100%;
+    display: block;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+    color: #ff9900;
+    font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 400px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px;
+    position: absolute;
+    z-index: 9999;
+    top: 125%;
+    left: 50%;
+    margin-left: -100px;
+
+	
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* Überschriften */
+h1, h2 {
+    text-align: center;
+}
+
+/* Formular */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 80%;
+    max-width: 600px;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+/* Fehlermeldung */
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Info-Text */
+.info {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Link-Liste dichter gestalten */
+.link-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.link-list li {
+    background-color: #111;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.pagination a:hover {
+    background-color: #222;
+}
