@@ -12,25 +12,21 @@
     </header>
 
     <div class="container">
-        <h1>TikTok-Link-Sammler
-
-        </h1>
-
-        <form method="POST" action="/">
-            <!-- Mehrzeilen-Eingabefeld für mehrere Links -->
-            <textarea name="eingabe_link" rows="8" placeholder="Bulkupload - Pro Zeile genau ein TikTok-Link" required></textarea>
-            <button type="submit">Speichern</button> 
-			<span class="tooltip">
+        <h1>TikTok-Link-Speicher
+            <span class="tooltip">
                 ?
                 <span class="tooltiptext">
                     Pro Zeile einen Link einfügen.<br>
-                    Jeder Link wird als eigener Datenbankeintrag gespeichert. 
-					Ein TikTok-Video-Link wird als TikTok-Kanal-Link erkannt.
+                    Bereits vorhandene Kanäle werden<br> übersprungen.
                 </span>
             </span>
+        </h1>
+
+        <form method="POST" action="/">
+            <!-- Mehrzeilen-Eingabefeld -->
+            <textarea name="eingabe_link" rows="8" placeholder="Pro Zeile ein TikTok-Link" required></textarea>
+            <button type="submit">Speichern</button>
         </form>
-		
-		            
 
         {% if fehlermeldung %}
             <p class="error">{{ fehlermeldung }}</p>

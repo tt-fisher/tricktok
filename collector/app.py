@@ -11,7 +11,7 @@ def get_db():
     db = getattr(g, "_database", None)
     if db is None:
         db = g._database = sqlite3.connect("datenbank.db")
-        # Keine UNIQUE-Konstraint, da jetzt mehrere Einträge erlaubt sind
+        # Keine UNIQUE-Konstraint, da wir manuell Duplikate prüfen
         db.execute(
             """
             CREATE TABLE IF NOT EXISTS links (
@@ -49,15 +49,15 @@ def extract_channel(link):
 def index():
     db = get_db()
 
-    # Pagination
+    # Paginierung
     page = int(request.args.get("page", 1))
     per_page = 50
     offset = (page - 1) * per_page
 
-    # Gesamtzahl Einträge ermitteln
+    # Gesamtanzahl Einträge ermitteln
     total_links = db.execute("SELECT COUNT(*) FROM links").fetchone()[0]
 
-    # Jüngste Einträge zuerst (id DESC), nur Kanal und Zeitstempel ausgeben
+    # Jüngste Einträge zuerst (id DESC)
     rows = db.execute(
         """
         SELECT kanal, zeitstempel
@@ -84,35 +84,38 @@ def index():
                 per_page=per_page
             )
 
-        # Ggf. mehrere Links in einer Textarea
+        # Mehrere Links in einer Textarea
         eingabe_text = request.form.get("eingabe_link", "").strip()
         lines = eingabe_text.split("\n")
 
-        valid_found = False  # Zum Prüfen, ob wenigstens ein valider Link gefunden wurde
+        valid_found = False
+        cursor = db.cursor()
 
-        # Metadaten für alle Einträge gleich (weil in einer Session)
+        # Metadaten
         user_agent = request.headers.get("User-Agent", "Unbekannt")
         ip_address = request.remote_addr or "Unbekannt"
         system_language = request.headers.get("Accept-Language", "Unbekannt")
-
-        # Datenbank-Transaktion vorbereiten
-        cursor = db.cursor()
 
         for line in lines:
             kanal_name = extract_channel(line)
             if kanal_name:
                 valid_found = True
-                zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                # Einfügen eines neuen Datensatzes pro Zeile
-                cursor.execute(
-                    """
-                    INSERT INTO links (kanal, zeitstempel, user_agent, ip_address, system_language)
-                    VALUES (?, ?, ?, ?, ?)
-                    """,
-                    (kanal_name, zeit, user_agent, ip_address, system_language)
-                )
 
-        # Wenn gar kein Kanal gefunden wurde, Meldung anzeigen
+                # Prüfen, ob kanal_name bereits existiert
+                cursor.execute("SELECT 1 FROM links WHERE kanal = ? LIMIT 1", (kanal_name,))
+                exists = cursor.fetchone()
+
+                if not exists:
+                    # Nur einfügen, wenn nicht vorhanden
+                    zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    cursor.execute(
+                        """
+                        INSERT INTO links (kanal, zeitstempel, user_agent, ip_address, system_language)
+                        VALUES (?, ?, ?, ?, ?)
+                        """,
+                        (kanal_name, zeit, user_agent, ip_address, system_language)
+                    )
+
         if not valid_found:
             fehlermeldung = "Keine gültigen TikTok-Links gefunden"
             return render_template(
@@ -124,7 +127,7 @@ def index():
                 per_page=per_page
             )
 
-        # Einfügungen übernehmen
+        # Änderungen übernehmen
         db.commit()
 
         # Sperrzeit aktualisieren
