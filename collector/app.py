@@ -1,8 +1,16 @@
 import re
 import time
 import sqlite3
+import logging
 from datetime import datetime
-from flask import Flask, request, g, render_template, redirect, url_for, session
+from flask import Flask, request, g, render_template, redirect, url_for
+
+# Logging-Konfiguration
+logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s %(message)s"
+)
 
 app = Flask(__name__)
 app.secret_key = "irgend_ein_schlüssel"
@@ -10,8 +18,10 @@ app.secret_key = "irgend_ein_schlüssel"
 def get_db():
     db = getattr(g, "_database", None)
     if db is None:
+        # Verbindung über verschlüsselten Socket oder abgesicherten Tunnel realisieren (je nach Umgebung).
         db = g._database = sqlite3.connect("datenbank.db")
-        # Keine UNIQUE-Konstraint, da wir manuell Duplikate prüfen
+
+        # Tabelle für Links mit Zeitstempel, Kanal, User-Agent, IP
         db.execute(
             """
             CREATE TABLE IF NOT EXISTS links (
@@ -19,8 +29,17 @@ def get_db():
                 kanal TEXT,
                 zeitstempel TEXT,
                 user_agent TEXT,
-                ip_address TEXT,
-                system_language TEXT
+                ip_address TEXT
+            )
+            """
+        )
+
+        # Neue Tabelle für IP-basierten Cooldown
+        db.execute(
+            """
+            CREATE TABLE IF NOT EXISTS ip_cooldowns (
+                ip TEXT PRIMARY KEY,
+                last_submit REAL
             )
             """
         )
@@ -54,7 +73,7 @@ def index():
     per_page = 50
     offset = (page - 1) * per_page
 
-    # Gesamtanzahl Einträge ermitteln
+    # Gesamtanzahl Einträge
     total_links = db.execute("SELECT COUNT(*) FROM links").fetchone()[0]
 
     # Jüngste Einträge zuerst (id DESC)
@@ -68,56 +87,43 @@ def index():
         (per_page, offset)
     ).fetchall()
 
+    fehlermeldung = None
+
     if request.method == "POST":
-        letzte_zeit = session.get("last_submit_time", 0)
+        ip_address = request.remote_addr or "Unbekannt"
         aktuelle_zeit = time.time()
 
-        # 10-Sekunden-Sperre für die gesamte Eingabe
-        if aktuelle_zeit - letzte_zeit < 10:
-            fehlermeldung = "Nur alle 10 Sekunden möglich"
-            return render_template(
-                "index.html",
-                links=rows,
-                fehlermeldung=fehlermeldung,
-                total_links=total_links,
-                page=page,
-                per_page=per_page
-            )
-
-        # Mehrere Links in einer Textarea
-        eingabe_text = request.form.get("eingabe_link", "").strip()
-        lines = eingabe_text.split("\n")
-
-        valid_found = False
         cursor = db.cursor()
 
-        # Metadaten
-        user_agent = request.headers.get("User-Agent", "Unbekannt")
-        ip_address = request.remote_addr or "Unbekannt"
-        system_language = request.headers.get("Accept-Language", "Unbekannt")
+        # IP-spezifische Sperre prüfen
+        result = cursor.execute(
+            "SELECT last_submit FROM ip_cooldowns WHERE ip = ?",
+            (ip_address,)
+        ).fetchone()
 
-        for line in lines:
-            kanal_name = extract_channel(line)
-            if kanal_name:
-                valid_found = True
+        if result:
+            letzte_zeit = result[0]
+            if aktuelle_zeit - letzte_zeit < 10:
+                fehlermeldung = "Nur alle 10 Sekunden möglich"
+                logging.info(
+                    "Abgewiesen: IP %s hat zu schnell hintereinander gepostet.",
+                    ip_address
+                )
+                return render_template(
+                    "index.html",
+                    links=rows,
+                    fehlermeldung=fehlermeldung,
+                    total_links=total_links,
+                    page=page,
+                    per_page=per_page
+                )
 
-                # Prüfen, ob kanal_name bereits existiert
-                cursor.execute("SELECT 1 FROM links WHERE kanal = ? LIMIT 1", (kanal_name,))
-                exists = cursor.fetchone()
+        eingabe_text = request.form.get("eingabe_link", "").strip()
+        kanal_name = extract_channel(eingabe_text)
 
-                if not exists:
-                    # Nur einfügen, wenn nicht vorhanden
-                    zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    cursor.execute(
-                        """
-                        INSERT INTO links (kanal, zeitstempel, user_agent, ip_address, system_language)
-                        VALUES (?, ?, ?, ?, ?)
-                        """,
-                        (kanal_name, zeit, user_agent, ip_address, system_language)
-                    )
-
-        if not valid_found:
-            fehlermeldung = "Keine gültigen TikTok-Links gefunden"
+        if not kanal_name:
+            fehlermeldung = "Keine gültige TikTok-URL gefunden"
+            logging.info("Ungültiger Link eingegeben: %s", eingabe_text)
             return render_template(
                 "index.html",
                 links=rows,
@@ -127,21 +133,86 @@ def index():
                 per_page=per_page
             )
 
-        # Änderungen übernehmen
-        db.commit()
+        # Kanal in Datenbank prüfen
+        cursor.execute(
+            "SELECT zeitstempel FROM links WHERE kanal = ? LIMIT 1", 
+            (kanal_name,)
+        )
+        duplikat = cursor.fetchone()
 
-        # Sperrzeit aktualisieren
-        session["last_submit_time"] = aktuelle_zeit
+        if duplikat:
+            # Duplikat-Hinweis mit Datum
+            vorhandenes_datum = duplikat[0]
+            fehlermeldung = f"Kanal bereits vorhanden. Zuletzt gespeichert am {vorhandenes_datum}"
+            logging.info("Kanal bereits vorhanden: %s (IP: %s)", kanal_name, ip_address)
+
+            # IP-Cooldown aktualisieren (auch wenn Duplikat)
+            cursor.execute(
+                "INSERT OR REPLACE INTO ip_cooldowns (ip, last_submit) VALUES (?, ?)",
+                (ip_address, aktuelle_zeit)
+            )
+            db.commit()
+
+            return render_template(
+                "index.html",
+                links=rows,
+                fehlermeldung=fehlermeldung,
+                total_links=total_links,
+                page=page,
+                per_page=per_page
+            )
+        else:
+            zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            user_agent = request.headers.get("User-Agent", "Unbekannt")
+
+            cursor.execute(
+                """
+                INSERT INTO links (
+                    kanal,
+                    zeitstempel,
+                    user_agent,
+                    ip_address
+                )
+                VALUES (?, ?, ?, ?)
+                """,
+                (
+                    kanal_name,
+                    zeit,
+                    user_agent,
+                    ip_address
+                )
+            )
+            db.commit()
+            logging.info("Neuer Kanal gespeichert: %s (IP: %s)", kanal_name, ip_address)
+
+            # IP-Cooldown aktualisieren oder anlegen
+            cursor.execute(
+                """
+                INSERT OR REPLACE INTO ip_cooldowns (ip, last_submit)
+                VALUES (?, ?)
+                """,
+                (ip_address, aktuelle_zeit)
+            )
+            db.commit()
 
         return redirect(url_for("index"))
 
     return render_template(
         "index.html",
         links=rows,
+        fehlermeldung=fehlermeldung,
         total_links=total_links,
         page=page,
         per_page=per_page
     )
+
+@app.route("/info")
+def info():
+    return render_template("info.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
