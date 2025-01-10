@@ -17,10 +17,21 @@ body {
 }
 
 .banderole {
-    width: 150%; /* doppelte Breite */
+    width: 150%; /* Standardbreite für Desktop */
     height: auto; /* Höhe proportional anpassen */
     display: block;
 }
+
+@media (max-width: 600px) {
+    .banderole {
+        width: 100%; /* Breite auf 100% der Bildschirmgröße begrenzen */
+    }
+
+    .sticky-header {
+        padding: 0; /* Optional: zusätzlichen Abstand reduzieren */
+    }
+}
+
 
 /* Haupt-Container */
 .container {
