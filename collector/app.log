@@ -281,3 +281,85 @@
 2025-01-10 08:50:25,010 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:50:25] "GET / HTTP/1.1" 200 -
 2025-01-10 08:50:25,073 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:50:25] "GET /static/style.css HTTP/1.1" 200 -
 2025-01-10 08:50:25,089 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:50:25] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 08:56:48,359 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-10 08:56:48,359 INFO werkzeug [33mPress CTRL+C to quit[0m
+2025-01-10 08:56:48,359 INFO werkzeug  * Restarting with stat
+2025-01-10 08:56:48,861 WARNING werkzeug  * Debugger is active!
+2025-01-10 08:56:48,861 INFO werkzeug  * Debugger PIN: 754-181-255
+2025-01-10 08:56:49,976 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:56:49] "GET / HTTP/1.1" 200 -
+2025-01-10 08:56:50,101 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:56:50] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 08:56:50,101 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:56:50] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 08:57:13,025 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:57:13] "GET / HTTP/1.1" 200 -
+2025-01-10 08:57:13,088 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:57:13] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 08:57:13,103 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:57:13] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 08:58:10,569 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:58:10] "GET / HTTP/1.1" 200 -
+2025-01-10 08:58:10,632 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:58:10] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 08:58:10,647 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:58:10] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 08:58:11,590 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:58:11] "GET / HTTP/1.1" 200 -
+2025-01-10 08:58:11,637 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:58:11] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 08:58:11,653 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 08:58:11] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:21,093 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:21] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:21,156 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:21] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 09:01:21,172 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:21] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:21,957 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:21] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:22,019 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:01:22,035 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:22] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:23,416 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:23] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:23,479 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:01:23,494 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:23] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:23,872 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:23] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:23,934 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:01:23,950 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:23] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:24,154 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:24,201 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:01:24,217 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:24,390 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:24,437 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:01:24,468 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:24,672 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:24,735 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:01:24,751 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:24] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:25,034 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:25] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:25,081 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:25] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:01:25,097 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:25] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:01:59,823 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:59] "GET / HTTP/1.1" 200 -
+2025-01-10 09:01:59,886 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:59] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 09:01:59,901 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:01:59] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:02:00,717 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:02:00] "GET / HTTP/1.1" 200 -
+2025-01-10 09:02:00,764 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:02:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:02:00,795 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:02:00] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:05:20,687 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:20] "GET / HTTP/1.1" 200 -
+2025-01-10 09:05:20,734 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:20] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 09:05:20,766 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:20] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:05:21,943 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:21] "GET / HTTP/1.1" 200 -
+2025-01-10 09:05:21,990 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:05:22,005 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:22] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:05:22,445 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:22] "GET / HTTP/1.1" 200 -
+2025-01-10 09:05:22,491 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:05:22,507 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:22] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:05:22,664 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:22] "GET / HTTP/1.1" 200 -
+2025-01-10 09:05:22,727 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:05:22,758 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:22] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:05:40,941 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:40] "GET /contact HTTP/1.1" 200 -
+2025-01-10 09:05:41,004 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:05:41,019 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:41] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:05:41,884 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:41] "GET /contact HTTP/1.1" 200 -
+2025-01-10 09:05:41,931 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:05:41,947 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:41] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:05:46,547 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:46] "GET / HTTP/1.1" 200 -
+2025-01-10 09:05:46,610 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:46] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:05:46,626 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:05:46] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:06:18,290 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:06:18] "GET / HTTP/1.1" 200 -
+2025-01-10 09:06:18,337 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:06:18] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 09:06:18,368 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:06:18] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:06:19,154 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:06:19] "GET / HTTP/1.1" 200 -
+2025-01-10 09:06:19,200 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:06:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:06:19,232 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:06:19] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:09:00,628 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:09:00] "GET / HTTP/1.1" 200 -
+2025-01-10 09:09:00,674 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:09:00] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 09:09:00,706 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:09:00] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:30:11,410 INFO werkzeug  * Detected change in 'C:\\Users\\kleis\\tricktok\\collector\\app.py', reloading
+2025-01-10 09:30:11,472 INFO werkzeug  * Restarting with stat
+2025-01-10 09:30:12,210 WARNING werkzeug  * Debugger is active!
+2025-01-10 09:30:12,210 INFO werkzeug  * Debugger PIN: 754-181-255
