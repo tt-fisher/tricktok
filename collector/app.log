@@ -376,3 +376,78 @@
 2025-01-10 09:38:33,787 INFO werkzeug  * Restarting with stat
 2025-01-10 09:38:34,461 WARNING werkzeug  * Debugger is active!
 2025-01-10 09:38:34,461 INFO werkzeug  * Debugger PIN: 754-181-255
+2025-01-10 09:38:55,091 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-10 09:38:55,106 INFO werkzeug [33mPress CTRL+C to quit[0m
+2025-01-10 09:38:55,106 INFO werkzeug  * Restarting with stat
+2025-01-10 09:38:55,640 WARNING werkzeug  * Debugger is active!
+2025-01-10 09:38:55,640 INFO werkzeug  * Debugger PIN: 754-181-255
+2025-01-10 09:38:58,591 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:38:58] "GET / HTTP/1.1" 200 -
+2025-01-10 09:38:58,748 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:38:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:38:58,748 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:38:58] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:38:59,974 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:38:59] "GET / HTTP/1.1" 200 -
+2025-01-10 09:39:00,037 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:39:00,053 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:00] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:39:02,833 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:02] "GET / HTTP/1.1" 200 -
+2025-01-10 09:39:02,880 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:39:02,896 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:02] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:39:03,461 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "GET / HTTP/1.1" 200 -
+2025-01-10 09:39:03,508 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:39:03,523 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:39:03,680 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "GET / HTTP/1.1" 200 -
+2025-01-10 09:39:03,727 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:39:03,751 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:39:03,869 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "GET / HTTP/1.1" 200 -
+2025-01-10 09:39:03,932 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:39:03,948 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:03] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:39:04,026 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:04] "GET / HTTP/1.1" 200 -
+2025-01-10 09:39:04,089 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:04] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:39:04,105 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:39:04] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:45:59,691 INFO werkzeug  * Detected change in 'C:\\Users\\kleis\\tricktok\\collector\\app.py', reloading
+2025-01-10 09:45:59,736 INFO werkzeug  * Restarting with stat
+2025-01-10 09:46:00,175 WARNING werkzeug  * Debugger is active!
+2025-01-10 09:46:00,175 INFO werkzeug  * Debugger PIN: 754-181-255
+2025-01-10 09:46:06,945 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-10 09:46:06,945 INFO werkzeug [33mPress CTRL+C to quit[0m
+2025-01-10 09:46:06,945 INFO werkzeug  * Restarting with stat
+2025-01-10 09:46:07,448 WARNING werkzeug  * Debugger is active!
+2025-01-10 09:46:07,448 INFO werkzeug  * Debugger PIN: 754-181-255
+2025-01-10 09:46:10,101 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:10] "GET / HTTP/1.1" 200 -
+2025-01-10 09:46:10,259 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:10,259 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:10] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:46:12,756 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:12] "GET / HTTP/1.1" 200 -
+2025-01-10 09:46:12,819 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:12] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:12,855 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:12] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:46:25,018 INFO root Neuer Kanal gespeichert: sdfdffasdsfbdsfsd (IP: 127.0.0.1)
+2025-01-10 09:46:25,049 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:25] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-01-10 09:46:25,064 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:25] "GET / HTTP/1.1" 200 -
+2025-01-10 09:46:25,127 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:25] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:25,143 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:25] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:46:28,145 INFO root Abgewiesen: IP 127.0.0.1 hat zu schnell hintereinander gepostet.
+2025-01-10 09:46:28,145 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:28] "POST / HTTP/1.1" 200 -
+2025-01-10 09:46:28,208 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:28,223 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:28] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:46:33,138 INFO root Abgewiesen: IP 127.0.0.1 hat zu schnell hintereinander gepostet.
+2025-01-10 09:46:33,138 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:33] "POST / HTTP/1.1" 200 -
+2025-01-10 09:46:33,184 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:33,201 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:33] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:46:37,000 INFO root Ungultiger Link eingegeben: fesdfad
+2025-01-10 09:46:37,000 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:37] "POST / HTTP/1.1" 200 -
+2025-01-10 09:46:37,047 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:37] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:37,063 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:37] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:46:41,143 INFO root Neuer Kanal gespeichert: sdfdffasdsfbdsfsdefed (IP: 127.0.0.1)
+2025-01-10 09:46:41,174 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:41] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-01-10 09:46:41,206 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:41] "GET / HTTP/1.1" 200 -
+2025-01-10 09:46:41,253 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:41,269 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:41] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:46:44,988 INFO root Abgewiesen: IP 127.0.0.1 hat zu schnell hintereinander gepostet.
+2025-01-10 09:46:44,988 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:44] "POST / HTTP/1.1" 200 -
+2025-01-10 09:46:45,051 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 09:46:45,067 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:46:45] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 09:47:36,184 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-10 09:47:36,184 INFO werkzeug [33mPress CTRL+C to quit[0m
+2025-01-10 09:47:36,184 INFO werkzeug  * Restarting with stat
+2025-01-10 09:47:36,576 WARNING werkzeug  * Debugger is active!
+2025-01-10 09:47:36,576 INFO werkzeug  * Debugger PIN: 754-181-255

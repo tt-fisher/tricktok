@@ -13,14 +13,14 @@ logging.basicConfig(
 )
 
 app = Flask(__name__)
-app.secret_key = "irgend_ein_schlüssel"
+app.secret_key = "irgend_ein_schlussel"
 
 def get_db():
     db = getattr(g, "_database", None)
     if db is None:
         db = g._database = sqlite3.connect("datenbank.db")
 
-        # Tabelle für Links mit Zeitstempel, Kanal, User-Agent, IP
+        # Tabelle fur Links mit Zeitstempel, Kanal, User-Agent, IP
         db.execute(
             """
             CREATE TABLE IF NOT EXISTS links (
@@ -33,7 +33,7 @@ def get_db():
             """
         )
 
-        # Tabelle für IP-basierten Cooldown
+        # Tabelle fur IP-basierten Cooldown
         db.execute(
             """
             CREATE TABLE IF NOT EXISTS ip_cooldowns (
@@ -85,7 +85,7 @@ def index():
         aktuelle_zeit = time.time()
         cursor = db.cursor()
 
-        # Prüfen, ob die IP in den letzten 10 Sekunden gepostet hat
+        # Prufen, ob die IP in den letzten 10 Sekunden gepostet hat
         result = cursor.execute(
             "SELECT last_submit FROM ip_cooldowns WHERE ip = ?",
             (ip_address,)
@@ -94,7 +94,7 @@ def index():
         if result:
             letzte_zeit = result[0]
             if aktuelle_zeit - letzte_zeit < 10:
-                fehlermeldung = "Nur alle 10 Sekunden möglich"
+                fehlermeldung = "Nur alle 10 Sekunden moglich"
                 logging.info(
                     "Abgewiesen: IP %s hat zu schnell hintereinander gepostet.",
                     ip_address
@@ -112,8 +112,8 @@ def index():
         kanal_name = extract_channel(eingabe_text)
 
         if not kanal_name:
-            fehlermeldung = "Keine gültige TikTok-URL gefunden"
-            logging.info("Ungültiger Link eingegeben: %s", eingabe_text)
+            fehlermeldung = "Keine gultige TikTok-URL gefunden"
+            logging.info("Ungultiger Link eingegeben: %s", eingabe_text)
             return render_template(
                 "index.html",
                 links=rows,
@@ -123,7 +123,7 @@ def index():
                 per_page=per_page
             )
 
-        # Kanal auf Duplikat prüfen
+        # Kanal auf Duplikat prufen
         cursor.execute(
             "SELECT zeitstempel FROM links WHERE kanal = ? LIMIT 1", 
             (kanal_name,)
