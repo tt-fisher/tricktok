@@ -17,7 +17,8 @@ body {
 }
 
 .banderole {
-    width: 100%;
+    width: 150%; /* doppelte Breite */
+    height: auto; /* Höhe proportional anpassen */
     display: block;
 }
 
