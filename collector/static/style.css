@@ -24,7 +24,7 @@ body {
 
 @media (max-width: 600px) {
     .banderole {
-        width: 100%; /* Breite auf 100% der Bildschirmgröße begrenzen */
+        width: 150%; /* Breite auf 100% der Bildschirmgröße begrenzen */
     }
 
     .sticky-header {
