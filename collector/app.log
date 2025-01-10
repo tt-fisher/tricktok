@@ -475,3 +475,23 @@
 2025-01-10 09:59:32,805 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:59:32] "GET / HTTP/1.1" 200 -
 2025-01-10 09:59:32,861 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:59:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
 2025-01-10 09:59:32,891 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 09:59:32] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 10:03:57,477 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:03:57] "GET / HTTP/1.1" 200 -
+2025-01-10 10:03:57,540 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:03:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 10:03:57,557 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:03:57] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 10:03:58,180 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:03:58] "GET / HTTP/1.1" 200 -
+2025-01-10 10:03:58,237 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:03:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 10:03:58,257 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:03:58] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 10:06:59,416 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:06:59] "GET / HTTP/1.1" 200 -
+2025-01-10 10:06:59,506 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:06:59] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 10:06:59,526 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:06:59] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 10:07:02,572 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:02] "GET / HTTP/1.1" 200 -
+2025-01-10 10:07:02,639 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 10:07:02,677 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:02] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 10:07:16,908 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:16] "GET / HTTP/1.1" 200 -
+2025-01-10 10:07:16,996 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:16] "GET /static/style.css HTTP/1.1" 200 -
+2025-01-10 10:07:17,017 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:17] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
+2025-01-10 10:07:36,584 INFO root Neuer Kanal gespeichert: fdadsffbdgsf (IP: 127.0.0.1)
+2025-01-10 10:07:36,635 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:36] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-01-10 10:07:36,656 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:36] "GET / HTTP/1.1" 200 -
+2025-01-10 10:07:36,720 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-01-10 10:07:36,740 INFO werkzeug 127.0.0.1 - - [10/Jan/2025 10:07:36] "[36mGET /static/banderole.png HTTP/1.1[0m" 304 -
