@@ -81,7 +81,10 @@ def index():
     fehlermeldung = None
 
     if request.method == "POST":
-        ip_address = request.remote_addr or "Unbekannt"
+        ip_address = request.headers.get("X-Forwarded-For", request.remote_addr) or "Unbekannt"
+        if "," in ip_address:
+            ip_address = ip_address.split(",")[0].strip()
+
         aktuelle_zeit = time.time()
         cursor = db.cursor()
 
