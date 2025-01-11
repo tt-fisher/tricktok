@@ -101,24 +101,24 @@ Anstelle eines Cronjobs kannst du `systemd` verwenden, um das Skript regelmäßi
 
  Lade die `systemd`-Dienstdateien neu:
 
-    ```bash
+
     sudo systemctl daemon-reload
-    ```
+
 
  Aktiviere und starte den Timer:
 
-    ```bash
+
     sudo systemctl enable tiktok-crawler.timer
     sudo systemctl start tiktok-crawler.timer
-    ```
+
 
 ## Verwendung
 
 Das Skript wird nun automatisch alle 12 Stunden durch `systemd` ausgeführt. Die Ausgaben und Protokolle können mit `journalctl` eingesehen werden:
 
-```bash
-journalctl -u tiktok-crawler.service
-```
+
+    journalctl -u tiktok-crawler.service
+
 
 
 ## Crawler-Skript
@@ -130,9 +130,9 @@ _________
 
 ### Logging verfolgen
 
-```
-tail -f metadata_extraction1.log
-```
+
+    tail -f metadata_extraction1.log
+
 
 
 ```bash
