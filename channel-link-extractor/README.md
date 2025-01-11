@@ -7,6 +7,19 @@ Ein TikTok-Crawler, der ausgewählte TikTok-Kanäle in definierten Intervallen v
 
 Dieser Crawler verarbeitet ausschließlich Videodateien und deren Metadaten. __TikTok-Fotos und deren Metadaten werden nicht verarbeitet.__
 
+
+_________________
+
+### yt-dlp
+
+**yt-dlp** ist ein Tool zum Herunterladen von Videos oder Metadaten von verschiedenen Websites
+
+
+
+    yt-dlp --flat-playlist --dump-single-json https://www.tiktok.com/@goetzfroemming | jq .
+
+
+Das Kommando ruft die Metadaten der TikTok-Playlist des angegebenen Nutzers (**@goetzfroemming**) in komprimierter Form ab, ohne die eigentlichen Videos herunterzuladen (**--flat-playlist**) und gibt sie im JSON-Format aus (**--dump-single-json**). Mit **jq .** werden die JSON-Daten formatiert und übersichtlich angezeigt.
 __________
 
 
@@ -15,55 +28,32 @@ __________
 ### Voraussetzungen
 
 - Debian-basiertes System
-- `yt-dlp` und `ffmpeg` müssen durch `apt-get` installiert werden
-- Conda muss bereits installiert sein
+- `yt-dlp` muss durch `apt-get` installiert werden
 
 ### Installation
 
 **Systempakete installieren**
 
-Führe die folgenden Befehle aus, um die benötigten Pakete zu installieren:
 
 `yt-dlp` wird im Python Skript als `subprocess`ausgeführt und muss auf dem System global installiert werden.
 
 #### Systempakete aktualisieren:
 
-    ```bash
+
     sudo apt-get update
-    ```
+
 
  `yt-dlp` installieren:
 
-    ```bash
+
     sudo apt-get install -y yt-dlp
-    ```
+
 
  `ffmpeg` installieren (optional):
 
-    ```bash
+
     sudo apt-get install -y ffmpeg
-    ```
 
-#### Conda-Umgebung erstellen**
-
- Erstelle eine Conda-Umgebung namens `sharedPython`:
-
-    ```bash
-    conda create -n sharedPython python=3.9
-    ```
-
-#### Aktiviere die neu erstellte Umgebung:
-
-    ```bash
-    conda activate sharedPython
-    ```
-
-#### Installiere die benötigten Python-Pakete:
-
-    ```bash
-    conda install -c conda-forge requests beautifulsoup4
-    pip install tiktokpy
-    ```
 
 ## Einrichtung mit systemd
 
@@ -71,7 +61,7 @@ Anstelle eines Cronjobs kannst du `systemd` verwenden, um das Skript regelmäßi
 
  Erstelle eine `systemd`-Service-Datei `/etc/systemd/system/tiktok-crawler.service`:
 
-    ```ini
+
     [Unit]
     Description=TikTok Crawler Service
 
@@ -82,11 +72,11 @@ Anstelle eines Cronjobs kannst du `systemd` verwenden, um das Skript regelmäßi
 
     [Install]
     WantedBy=multi-user.target
-    ```
+
 
  Erstelle eine `systemd`-Timer-Datei `/etc/systemd/system/tiktok-crawler.timer`:
 
-    ```ini
+
     [Unit]
     Description=Run TikTok Crawler every 12 hours
 
@@ -97,7 +87,7 @@ Anstelle eines Cronjobs kannst du `systemd` verwenden, um das Skript regelmäßi
 
     [Install]
     WantedBy=timers.target
-    ```
+
 
  Lade die `systemd`-Dienstdateien neu:
 
