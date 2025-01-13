@@ -89,18 +89,11 @@ word_counts <- df %>%
   # Zähle die Häufigkeit der Wörter
   count(word, sort = TRUE)
 
-# Überprüfe die am wenigsten häufigen Wörter
-print(tail(word_counts, 20))
-
 # -----------------------------
 # Schritt 5: Definieren der benutzerdefinierten Farbpalette
 # -----------------------------
 
-my_palette <- c("#355070",
-                "#6d597a",
-                "#b56576",
-                "#e56b6f",
-                "#eaac8b")
+my_palette <- c("#2ea9df", "#0073c0", "#ff2e17")
 
 # -----------------------------
 # Schritt 6: Definition der Shiny-App
@@ -108,10 +101,13 @@ my_palette <- c("#355070",
 
 # Benutzeroberfläche (UI) der Shiny-App
 ui <- fluidPage(
-  titlePanel("Interaktive Wortwolke"),
+  titlePanel("Tricktok Suche"),
+  
+  # Suchfeld für die Textsuche
+  textInput("search_term", "Suchbegriff eingeben:", ""),
   
   # Wortwolke anzeigen
-  wordcloud2Output("wordcloud", width = "100%", height = "600px"),  # Erhöhte Höhe
+  wordcloud2Output("wordcloud", width = "100%", height = "600px"),
   
   # Tabelle anzeigen
   DTOutput("filtered_tbl"),
@@ -119,10 +115,9 @@ ui <- fluidPage(
   # JavaScript zur Erfassung von Klickereignissen auf der Wortwolke
   tags$script(HTML(
     "
-    // Event-Listener für Klicks auf die Wortwolke
-    $(document).on('click', '.wordcloud2-text', function(e) {
-      var word = $(this).text();
-      if(word){
+    $(document).on('click', '.wordcloud2-canvas', function(e) {
+      var word = e.target.textContent;
+      if (word) {
         Shiny.setInputValue('clicked_word', word, {priority: 'event'});
       }
     });
@@ -138,19 +133,25 @@ server <- function(input, output, session) {
     wordcloud2(
       data = word_counts,
       color = rep_len(my_palette, nrow(word_counts)),
-      size = 2.0,  # Größere Schriftgröße
+      size = 5.2,
       backgroundColor = "white"
     )
   })
   
-  # Reaktive Funktion zur Filterung der Daten basierend auf dem geklickten Wort
+  # Reaktive Funktion zur Filterung der Daten basierend auf dem Suchbegriff oder dem geklickten Wort
   filtered_data <- reactive({
-    req(input$clicked_word)
-    clicked_word <- str_remove(input$clicked_word, ":[0-9]+$")
-    
-    df %>%
-      filter(str_detect(tolower(title), fixed(tolower(clicked_word)))) %>%
-      select(id, url, title)
+    if (input$search_term != "") {
+      search_term <- tolower(input$search_term)
+      df %>%
+        filter(str_detect(tolower(title), fixed(search_term))) %>%
+        select(id, url, title)
+    } else {
+      req(input$clicked_word)
+      clicked_word <- str_remove(input$clicked_word, ":[0-9]+$")
+      df %>%
+        filter(str_detect(tolower(title), fixed(tolower(clicked_word)))) %>%
+        select(id, url, title)
+    }
   })
   
   # Render die gefilterte Tabelle
