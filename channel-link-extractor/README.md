@@ -131,22 +131,20 @@ import sqlite3
 import subprocess
 import json
 import logging
-from datetime import datetime
 
-# Logging 
+# Logging konfigurieren
 logging.basicConfig(
-    filename='metadata_extraction1.log',
+    filename='metadata_extraction.log',
     level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logging.info("Skript gestartet")
 
-# SQLite-Datenbank erstellen
-def init_db(db_name="media_metadata1.db"):
+# SQLite-Datenbank erstellen oder öffnen
+def init_db(db_name="media_metadata.db"):
     logging.debug(f"Initialisiere Datenbank: {db_name}")
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-    # Haupttabelle 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS media_metadata (
             id TEXT PRIMARY KEY,
@@ -154,6 +152,10 @@ def init_db(db_name="media_metadata1.db"):
             title TEXT,
             description TEXT,
             duration INTEGER,
+            view_count INTEGER,
+            like_count INTEGER,
+            repost_count INTEGER,
+            comment_count INTEGER,
             uploader TEXT,
             uploader_id TEXT,
             channel TEXT,
@@ -164,19 +166,6 @@ def init_db(db_name="media_metadata1.db"):
             artists TEXT,
             timestamp INTEGER,
             extractor TEXT
-        )
-    ''')
-    # Tabelle für die Historie der Metriken
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS media_metrics_history (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            video_id TEXT,
-            view_count INTEGER,
-            like_count INTEGER,
-            repost_count INTEGER,
-            comment_count INTEGER,
-            timestamp INTEGER,
-            FOREIGN KEY(video_id) REFERENCES media_metadata(id)
         )
     ''')
     conn.commit()
@@ -202,23 +191,27 @@ def extract_metadata(url):
         logging.error(f"Fehler beim Abrufen von {url}: {e}")
         return None
 
-# Video-Metadaten in SQLite speichern
+# Einzelne Video-Metadaten in SQLite speichern
 def save_video_metadata(conn, video):
     cursor = conn.cursor()
     try:
-        # Speichern 
         cursor.execute('''
             INSERT OR REPLACE INTO media_metadata (
-                id, url, title, description, duration,
-                uploader, uploader_id, channel, channel_id,
-                channel_url, track, album, artists, timestamp, extractor
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                id, url, title, description, duration, view_count,
+                like_count, repost_count, comment_count, uploader,
+                uploader_id, channel, channel_id, channel_url, track,
+                album, artists, timestamp, extractor
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             video.get("id"),
             video.get("url"),
             video.get("title"),
             video.get("description"),
             video.get("duration"),
+            video.get("view_count"),
+            video.get("like_count"),
+            video.get("repost_count"),
+            video.get("comment_count"),
             video.get("uploader"),
             video.get("uploader_id"),
             video.get("channel"),
@@ -230,27 +223,12 @@ def save_video_metadata(conn, video):
             video.get("timestamp"),
             video.get("extractor")
         ))
-        
-        # Speichern der Metriken in der Historientabelle
-        cursor.execute('''
-            INSERT INTO media_metrics_history (
-                video_id, view_count, like_count, repost_count, comment_count, timestamp
-            ) VALUES (?, ?, ?, ?, ?, ?)
-        ''', (
-            video.get("id"),
-            video.get("view_count"),
-            video.get("like_count"),
-            video.get("repost_count"),
-            video.get("comment_count"),
-            int(datetime.now().timestamp())
-        ))
-        
         conn.commit()
-        logging.debug(f"Metadaten und Metriken für Video ID={video.get('id')} gespeichert")
+        logging.debug(f"Metadaten für Video ID={video.get('id')} gespeichert")
     except sqlite3.Error as e:
         logging.error(f"SQLite-Fehler bei Video ID={video.get('id')}: {e}")
 
-# Playlist-Metadaten speichern
+# Playlist verarbeiten und Metadaten speichern
 def process_playlist_metadata(conn, playlist_metadata):
     if not playlist_metadata or "entries" not in playlist_metadata:
         logging.debug("Keine Videos in der Playlist gefunden")
@@ -259,8 +237,8 @@ def process_playlist_metadata(conn, playlist_metadata):
     for video in playlist_metadata["entries"]:
         save_video_metadata(conn, video)
 
-# Links lesen und verarbeiten
-def process_links(file_name="links.txt", db_name="media_metadata1.db"):
+# Links aus Datei lesen und verarbeiten
+def process_links(file_name="links.txt", db_name="media_metadata.db"):
     logging.debug(f"Beginne Verarbeitung von Links aus Datei: {file_name}")
     conn = init_db(db_name)
     if not os.path.exists(file_name):
@@ -285,5 +263,6 @@ def process_links(file_name="links.txt", db_name="media_metadata1.db"):
 
 if __name__ == "__main__":
     process_links()
+
 ```
 
