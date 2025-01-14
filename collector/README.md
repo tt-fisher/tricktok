@@ -1,6 +1,6 @@
 ![Banderole](./banderole.png)
 
-# Tik-Tok Link Sammeler
+# Tik-Tok Link Sammler
 
 Projekt der TikTok Archive Search Engine
 
