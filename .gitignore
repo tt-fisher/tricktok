@@ -1,3 +1,4 @@
 /venv
 collector/venv/
 .ipynb_checkpoints
+app.log
