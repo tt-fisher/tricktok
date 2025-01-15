@@ -13,14 +13,15 @@ logging.basicConfig(
 )
 
 app = Flask(__name__)
-app.secret_key = "irgend_ein_schlussel"
+app.secret_key = "irgend_ein_schlüssel"
 
 def get_db():
     db = getattr(g, "_database", None)
     if db is None:
+        # Verbindung über verschlüsselten Socket oder abgesicherten Tunnel realisieren (je nach Umgebung).
         db = g._database = sqlite3.connect("datenbank.db")
 
-        # Tabelle fur Links mit Zeitstempel, Kanal, User-Agent, IP
+        # Tabelle für Links mit Zeitstempel, Kanal, User-Agent, IP
         db.execute(
             """
             CREATE TABLE IF NOT EXISTS links (
@@ -33,7 +34,7 @@ def get_db():
             """
         )
 
-        # Tabelle fur IP-basierten Cooldown
+        # Neue Tabelle für IP-basierten Cooldown
         db.execute(
             """
             CREATE TABLE IF NOT EXISTS ip_cooldowns (
@@ -51,6 +52,12 @@ def close_connection(exception):
         db.close()
 
 def extract_channel(link):
+    """
+    Extrahiert den Kanalnamen aus einem TikTok-Link.
+    Beispiele:
+      - https://www.tiktok.com/@meinKanal/video/12345 -> meinKanal
+      - tiktok.com/@test123 -> test123
+    """
     pattern = r"(?:https?:\/\/)?(?:www\.)?tiktok\.com\/@([^\/]+)"
     match = re.search(pattern, link.strip())
     if match:
@@ -63,11 +70,13 @@ def index():
 
     # Paginierung
     page = int(request.args.get("page", 1))
-    per_page = 5
+    per_page = 50
     offset = (page - 1) * per_page
 
+    # Gesamtanzahl Einträge
     total_links = db.execute("SELECT COUNT(*) FROM links").fetchone()[0]
 
+    # Jüngste Einträge zuerst (id DESC)
     rows = db.execute(
         """
         SELECT kanal, zeitstempel
@@ -81,14 +90,12 @@ def index():
     fehlermeldung = None
 
     if request.method == "POST":
-        ip_address = request.headers.get("X-Forwarded-For", request.remote_addr) or "Unbekannt"
-        if "," in ip_address:
-            ip_address = ip_address.split(",")[0].strip()
-
+        ip_address = request.remote_addr or "Unbekannt"
         aktuelle_zeit = time.time()
+
         cursor = db.cursor()
 
-        # Prufen, ob die IP in den letzten 10 Sekunden gepostet hat
+        # IP-spezifische Sperre prüfen
         result = cursor.execute(
             "SELECT last_submit FROM ip_cooldowns WHERE ip = ?",
             (ip_address,)
@@ -97,7 +104,7 @@ def index():
         if result:
             letzte_zeit = result[0]
             if aktuelle_zeit - letzte_zeit < 10:
-                fehlermeldung = "Nur alle 10 Sekunden moglich"
+                fehlermeldung = "Nur alle 10 Sekunden möglich"
                 logging.info(
                     "Abgewiesen: IP %s hat zu schnell hintereinander gepostet.",
                     ip_address
@@ -115,8 +122,8 @@ def index():
         kanal_name = extract_channel(eingabe_text)
 
         if not kanal_name:
-            fehlermeldung = "Keine gultige TikTok-URL gefunden"
-            logging.info("Ungultiger Link eingegeben: %s", eingabe_text)
+            fehlermeldung = "Keine gültige TikTok-URL gefunden"
+            logging.info("Ungültiger Link eingegeben: %s", eingabe_text)
             return render_template(
                 "index.html",
                 links=rows,
@@ -126,7 +133,7 @@ def index():
                 per_page=per_page
             )
 
-        # Kanal auf Duplikat prufen
+        # Kanal in Datenbank prüfen
         cursor.execute(
             "SELECT zeitstempel FROM links WHERE kanal = ? LIMIT 1", 
             (kanal_name,)
@@ -134,11 +141,12 @@ def index():
         duplikat = cursor.fetchone()
 
         if duplikat:
+            # Duplikat-Hinweis mit Datum
             vorhandenes_datum = duplikat[0]
             fehlermeldung = f"Kanal bereits vorhanden. Zuletzt gespeichert am {vorhandenes_datum}"
             logging.info("Kanal bereits vorhanden: %s (IP: %s)", kanal_name, ip_address)
 
-            # IP-Cooldown aktualisieren
+            # IP-Cooldown aktualisieren (auch wenn Duplikat)
             cursor.execute(
                 "INSERT OR REPLACE INTO ip_cooldowns (ip, last_submit) VALUES (?, ?)",
                 (ip_address, aktuelle_zeit)
@@ -177,7 +185,7 @@ def index():
             db.commit()
             logging.info("Neuer Kanal gespeichert: %s (IP: %s)", kanal_name, ip_address)
 
-            # IP-Cooldown aktualisieren
+            # IP-Cooldown aktualisieren oder anlegen
             cursor.execute(
                 """
                 INSERT OR REPLACE INTO ip_cooldowns (ip, last_submit)
@@ -187,7 +195,7 @@ def index():
             )
             db.commit()
 
-        return redirect(url_for("index", show_eingabe=1, success=1))
+        return redirect(url_for("index"))
 
     return render_template(
         "index.html",
@@ -207,5 +215,4 @@ def contact():
     return render_template("contact.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
+    app.run(debug=True)

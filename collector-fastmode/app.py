@@ -63,7 +63,7 @@ def index():
 
     # Paginierung
     page = int(request.args.get("page", 1))
-    per_page = 5
+    per_page = 50
     offset = (page - 1) * per_page
 
     total_links = db.execute("SELECT COUNT(*) FROM links").fetchone()[0]
@@ -187,7 +187,7 @@ def index():
             )
             db.commit()
 
-        return redirect(url_for("index", show_eingabe=1, success=1))
+        return redirect(url_for("index"))
 
     return render_template(
         "index.html",
@@ -207,5 +207,4 @@ def contact():
     return render_template("contact.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
+    app.run(debug=True)
