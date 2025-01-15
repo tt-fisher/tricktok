@@ -2,8 +2,11 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>TikTok-Link-Sammler</title>
+  <title>TikTok-Link-Sammler – Kontakt</title>
+  <!-- system.css -->
   <link rel="stylesheet" href="{{ url_for('static', filename='system.css') }}">
+  <!-- Neue Loading-CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='loading.css') }}">
 </head>
 <body>
 
@@ -12,49 +15,71 @@
     <div class="menu-bar" style="padding: 4px 8px;">
       <ul role="menu-bar">
         <li role="menu-item" tabindex="0" aria-haspopup="true">
-          File
+          Run
           <ul role="menu">
-            <li role="menu-item"><a href="#" id="openEingabe">Eingabe</a></li>
-            <li role="menu-item"><a href="#" id="openDatenbank">Datenbank</a></li>
-            <li role="menu-item"><a href="#export">Export</a></li>
+            <li role="menu-item"><a href="{{ url_for('index') }}">Home</a></li>
+            <li role="menu-item"><a href="{{ url_for('info') }}">Info</a></li>
+            <li role="menu-item"><a href="{{ url_for('contact') }}">Contact</a></li>
           </ul>
         </li>
-        <li role="menu-item" tabindex="0" aria-haspopup="true">
-    Edit
-    <ul role="menu">
-      <li role="menu-item"><a href="#menu">Action</a></li>
-      <li role="menu-item"><a href="#menu">Another Action</a></li>
-      <li role="menu-item" class="divider"><a href="#menu">Something else</a></li>
-   </ul>
-  </li>
-  <li role="menu-item" tabindex="0" aria-haspopup="true">
-    View
-    <ul role="menu">
-      <li role="menu-item"><a href="#menu">Action</a></li>
-      <li role="menu-item"><a href="#menu">Another Action</a></li>
-      <li role="menu-item"><a href="#menu">Something else</a></li>
-    </ul>
-  </li>
-  <li role="menu-item" tabindex="0" aria-haspopup="true">
-    Special
-    <ul role="menu">
-      <li role="menu-item"><a href="{{ url_for('index') }}">Home</a></li>
-      <li role="menu-item"><a href="{{ url_for('info') }}">Info</a></li>
-      <li role="menu-item"><a href="{{ url_for('contact') }}">Contact</a></li>
-    </ul>
-  </li>
       </ul>
     </div>
   </header>
-    <div class="window" style="margin: 20px auto; width: 80%; max-width: 800px;">
-        <div class="title-bar">
-            <h1 class="title">Kontakt</h1>
-            <button aria-label="Close" class="close"></button>
-        </div>
-        <div class="window-pane">
-            <p>Hier stehen Kontaktinformationen.</p>
-            <a href="/" class="btn">Zurück zur Startseite</a>
-        </div>
+
+  <!-- Lade-Overlay mit schwarzem Balken -->
+  <div id="loading-overlay">
+    <div class="loading-bar-container">
+      <div class="loading-bar-fill" id="loadingBar"></div>
     </div>
+    <div class="loading-percentage" id="loadingPercent">0&nbsp;%</div>
+  </div>
+
+  <!-- Haupt-Kontakt-Fenster -->
+  <div class="window" style="margin: 20px auto; width: 80%; max-width: 800px;">
+    <div class="title-bar">
+      <h1 class="title">Kontakt</h1>
+      <button aria-label="Close" class="close"></button>
+    </div>
+    <div class="window-pane">
+      <p>####################</p>
+      <a href="{{ url_for('index') }}" class="btn">Zurück zur Startseite</a>
+    </div>
+  </div>
+
+  <script>
+    /**********************************************
+     * Loading-Bar JavaScript
+     **********************************************/
+    let progress = 0;
+    const maxProgress = 100;
+    const loadingBar = document.getElementById('loadingBar');
+    const loadingPercent = document.getElementById('loadingPercent');
+    const overlay = document.getElementById('loading-overlay');
+
+    // Simpler Timer: alle 50ms +1%
+    const timer = setInterval(() => {
+      progress++;
+      if (progress > maxProgress) {
+        // Fertig => Overlay ausblenden
+        clearInterval(timer);
+        overlay.classList.add('hidden'); 
+        return;
+      }
+      // Balken füllen
+      loadingBar.style.width = progress + '%';
+      // Text
+      loadingPercent.textContent = progress + ' %';
+    }, 0.01);
+
+    // Optional: Schließen-Button im Kontakt-Fenster (wenn gewünscht).
+    const closeBtn = document.querySelector('.close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        // Einfaches "Fenster schließen", z.B. per History back ...
+        window.history.back();
+      });
+    }
+  </script>
+
 </body>
 </html>

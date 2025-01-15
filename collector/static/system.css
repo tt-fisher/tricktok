@@ -1014,3 +1014,63 @@ input[type="checkbox"][disabled]:checked + label:after {
 }
 
 
+
+
+
+
+
+
+
+
+
+/* Move Windows */
+
+
+ #modalContainer {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 50px);
+    }
+
+    .menu {
+      margin: 1em;
+    }
+    .menu a {
+      margin-right: 1em;
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+    }
+
+    /* Fenster-Style (modale Fenster, verschiebbar) */
+    .modal-window {
+      position: absolute; /* zum Verschieben */
+      top: 100px;
+      left: 100px;
+      z-index: 10;        /* Wird dynamisch erhöht */
+    }
+    .title-bar {
+      cursor: move;
+      user-select: none; /* verhindert Textauswahl beim Draggen */
+    }
+    .close {
+      cursor: pointer;
+    }
+
+    /* Beispiel-Icons im Body (niedriger z-index) */
+    .icon-launcher {
+      position: absolute;
+      z-index: 2;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+    /* Position Beispielicon #icon6 links unten */
+    #icon6 {
+      top: 100px;
+      left: 120px;
+    }
+    /* Position Beispielicon #icon7 rechts unten */
+    #icon7 {
+      bottom: 200px;
+      right: 20px;

@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>TikTok-Link-Sammler Desktop Simulation</title>
+  <title>Adenauer OS Desktop </title>
   <!-- system.css mit deinen Anpassungen -->
   <link rel="stylesheet" href="{{ url_for('static', filename='system.css') }}">
 
@@ -10,54 +10,7 @@
     /***********************************
      * Zusätzliche Stile
      ***********************************/
-    #modalContainer {
-      position: relative;
-      width: 100%;
-      height: calc(100vh - 50px);
-    }
-
-    .menu {
-      margin: 1em;
-    }
-    .menu a {
-      margin-right: 1em;
-      cursor: pointer;
-      color: blue;
-      text-decoration: underline;
-    }
-
-    /* Fenster-Style (modale Fenster, verschiebbar) */
-    .modal-window {
-      position: absolute; /* zum Verschieben */
-      top: 100px;
-      left: 100px;
-      z-index: 10;        /* Wird dynamisch erhöht */
-    }
-    .title-bar {
-      cursor: move;
-      user-select: none; /* verhindert Textauswahl beim Draggen */
-    }
-    .close {
-      cursor: pointer;
-    }
-
-    /* Beispiel-Icons im Body (niedriger z-index) */
-    .icon-launcher {
-      position: absolute;
-      z-index: 2;
-      width: 60px;
-      height: 60px;
-      cursor: pointer;
-    }
-    /* Position Beispielicon #icon6 links unten */
-    #icon6 {
-      top: 100px;
-      left: 120px;
-    }
-    /* Position Beispielicon #icon7 rechts unten */
-    #icon7 {
-      bottom: 200px;
-      right: 20px;
+   
     }
   </style>
 </head>
@@ -73,6 +26,9 @@
           <ul role="menu">
             <li role="menu-item"><a href="#" id="openWindow1">Neuer Link</a></li>
             <li role="menu-item"><a href="#" id="openWindow2">Datenbank</a></li>
+			<li role="menu-item" class="divider"><a href="{{ url_for('export_csv') }}" id="exportLink">Export</a>
+</li>
+
           </ul>
         </li>
 
@@ -80,7 +36,7 @@
         <li role="menu-item" tabindex="0" aria-haspopup="true">
           Edit
           <ul role="menu">
-            <li role="menu-item"><a href="#" id="openWindow3">Vote</a></li>
+            <li role="menu-item"><a href="#" id="openWindow3">Search</a></li>
           </ul>
         </li>
 
@@ -88,12 +44,12 @@
         <li role="menu-item" tabindex="0" aria-haspopup="true">
           View
           <ul role="menu">
-            <li role="menu-item"><a href="#" id="openWindow4">Graphs</a></li>
+            <li role="menu-item"><a href="#" id="openWindow4">Notebook</a></li>
             <li role="menu-item"><a href="#" id="openWindow5">Logo</a></li>
           </ul>
         </li>
 
-        <!-- Spalte 4: Special -->
+        <!-- Spalte 4: Run -->
         <li role="menu-item" tabindex="0" aria-haspopup="true">
           Run
           <ul role="menu">
@@ -148,8 +104,8 @@
               <span class="tooltiptext">
                 Es kann immer nur ein Link gesendet werden. <br>
                 Nur eine Eingabe alle 10 Sekunden.<br>
-                Das Skript erkennt automatisch TikTok-Links.<br>
-                Keine Duplikate.
+                Das Prrogramm erkennt automatisch TikTok-Links.<br>
+                Duplikate werden übersprungen.
               </span>
             </span>
           </p>
@@ -176,7 +132,7 @@
           <ul style="list-style-type: none; padding-left: 0;">
             {% for (kanal, zeitstempel) in links %}
             <li style="margin-bottom: 8px;">
-              <div>{{ loop.index }}. <strong>Kanal:</strong> {{ kanal }}</div>
+              <div> <strong>Kanal:</strong> {{ kanal }}</div>
               <div>
                 <a href="https://www.tiktok.com/@{{ kanal }}" target="_blank" class="btn">LINK</a>
               </div>
@@ -197,31 +153,49 @@
       </div>
     `;
 
-    // 3) Vote
-    const template3 = `
-      <div class="window modal-window" data-win="win3">
-        <div class="title-bar" style="justify-content: space-between;">
-          <h1 class="title">Vote</h1>
-          <span class="close">[x]</span>
-        </div>
-        <div class="window-pane">
-          <p>Voting-Formular</p>
-        </div>
-      </div>
-    `;
+// 3) Search
+const template3 = `
+  <div class="window modal-window" data-win="win3"
+       style="width:800px; max-width:800px; height:600px; max-height:850px;">
+    <div class="title-bar" style="justify-content: space-between;">
+      <h1 class="title" style="margin:0;">Search</h1>
+      <span class="close" style="padding:0.5rem; cursor:pointer;">[x]</span>
+    </div>
+    <div class="window-pane"
+         style="width:100%; height:calc(100% - 2rem); overflow:auto; padding:0;">
+      <iframe src="https://words.on.tricktok.net" 
+              style="width: 100%; height: 100%; border:none;">
+      </iframe>
+    </div>
+  </div>
+`;
 
-    // 4) Graphs
-    const template4 = `
-      <div class="window modal-window" data-win="win4">
-        <div class="title-bar" style="justify-content: space-between;">
-          <h1 class="title">Graphs</h1>
-          <span class="close">[x]</span>
-        </div>
-        <div class="window-pane">
-          <p>Statistik</p>
-        </div>
-      </div>
-    `;
+
+	// 4) Graphs
+	const template4 = `
+		<div class="window modal-window" data-win="win4"
+       style="width:800px; max-width:800px; height:600px; max-height:850px; ">
+			<div class="title-bar" style="justify-content: space-between;">
+			<h1 class="title" style="margin:0;">Notebook</h1>
+			<span class="close" style="padding:0.5rem; cursor:pointer;">[x]</span>
+		</div>
+		<!-- 
+		Hier definieren wir einen scrollbaren Bereich 
+		(wenn dein Inhalt größer ist als 600×800). 
+		-->
+		<div class="window-pane"
+         style="width:100%; height:calc(100% - 2rem); overflow:auto; padding:0;">
+      <!-- 
+        Das iFrame lädt dein channel-link-extractor.html 
+        über die neue Flask-Route /channel_extractor 
+      -->
+      <iframe src="/channel_extractor" 
+              style="width: 100%; height: 100%; border:none;">
+      </iframe>
+    </div>
+  </div>
+`;
+
 
     // 5) Log
     const template5 = `
@@ -254,7 +228,7 @@
 		const template7 = `
 		<div class="window modal-window" data-win="win7">
 			<div class="title-bar" style="justify-content: space-between;">
-			<h1 class="title">Personal</h1>
+			<h1 class="title">Account</h1>
 			<span class="close">[x]</span>
 			</div>
 			<div class="window-pane">
@@ -480,5 +454,30 @@
       }
     });
   </script>
+  
+  
+  
+  <script>
+  // Button/Link-Referenz
+  const exportLink = document.getElementById('exportLink');
+  exportLink.addEventListener('click', (e) => {
+    // Nach Klick -> Deaktivieren (nur visuell/Frontend)
+    exportLink.style.pointerEvents = 'none';
+    exportLink.style.opacity = '0.5';
+
+    // 30s Timer
+    setTimeout(() => {
+      exportLink.style.pointerEvents = 'auto';
+      exportLink.style.opacity = '1';
+    }, 30000);
+  });
+  </script>
+  
+  
+  
+  
+  
+  
+  
 </body>
 </html>
