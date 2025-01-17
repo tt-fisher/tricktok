@@ -1,5 +1,5 @@
 
-# TikTok Channal-link-extractor
+# TikTok Kanal-Link 
 
 ## Beschreibung
 
@@ -140,6 +140,8 @@ logging.basicConfig(
 )
 logging.info("Skript gestartet")
 
+new_entries_count = 0  # Zähler für neue Einträge
+
 # SQLite-Datenbank erstellen oder öffnen
 def init_db(db_name="media_metadata.db"):
     logging.debug(f"Initialisiere Datenbank: {db_name}")
@@ -193,8 +195,15 @@ def extract_metadata(url):
 
 # Einzelne Video-Metadaten in SQLite speichern
 def save_video_metadata(conn, video):
+    global new_entries_count
     cursor = conn.cursor()
     try:
+        # Überprüfen, ob bereits ein Eintrag mit derselben URL existiert
+        cursor.execute("SELECT 1 FROM media_metadata WHERE url = ?", (video.get("url"),))
+        if cursor.fetchone():
+            logging.debug(f"Video mit URL {video.get('url')} existiert bereits. Überspringe Eintrag.")
+            return
+
         cursor.execute('''
             INSERT OR REPLACE INTO media_metadata (
                 id, url, title, description, duration, view_count,
@@ -224,6 +233,7 @@ def save_video_metadata(conn, video):
             video.get("extractor")
         ))
         conn.commit()
+        new_entries_count += 1
         logging.debug(f"Metadaten für Video ID={video.get('id')} gespeichert")
     except sqlite3.Error as e:
         logging.error(f"SQLite-Fehler bei Video ID={video.get('id')}: {e}")
@@ -260,9 +270,11 @@ def process_links(file_name="links.txt", db_name="media_metadata.db"):
 
     conn.close()
     logging.debug("Verarbeitung abgeschlossen")
+    print(f"{new_entries_count} neue Einträge hinzugefügt.")
 
 if __name__ == "__main__":
     process_links()
+
 
 ```
 
